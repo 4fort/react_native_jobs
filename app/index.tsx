@@ -18,14 +18,15 @@ import {
 const Home = () => {
   const router = useRouter();
 
+  const [searchTerm, setSearchTerm] = useState("");
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Stack.Screen
         options={{
-          headerStyle: { backgroundColor: COLORS.lightWhite },
           headerShadowVisible: false,
-          // headerTransparent: true,
-          // headerBlurEffect: "regular",
+          headerTransparent: true,
+          headerBlurEffect: "regular",
           headerLeft: () => {
             return (
               <ScreenHeaderBtn
@@ -57,7 +58,15 @@ const Home = () => {
             padding: SIZES.medium,
           }}
         >
-          <Welcome />
+          <Welcome
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            handleClick={() => {
+              if (searchTerm) {
+                router.push(`/search/${searchTerm}`);
+              }
+            }}
+          />
           <Popularjobs />
           <Nearbyjobs />
         </View>

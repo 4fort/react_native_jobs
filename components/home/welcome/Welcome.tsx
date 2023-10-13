@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   Image,
   FlatList,
+  TextInputChangeEventData,
+  NativeSyntheticEvent,
 } from "react-native";
 import { useRouter } from "expo-router";
 
@@ -21,7 +23,19 @@ const jobTypes: string[] = [
   "Contract",
 ];
 
-const Welcome = () => {
+interface WelcomeProps {
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<
+    React.SetStateAction<
+      string | NativeSyntheticEvent<TextInputChangeEventData>
+    >
+  >;
+  handleClick: () => void;
+}
+
+const Welcome = (props: WelcomeProps) => {
+  const { searchTerm, setSearchTerm, handleClick } = props;
+
   const router = useRouter();
   const [activeJobType, setActiveJobType] = useState<string>("Full Time");
 
@@ -35,12 +49,14 @@ const Welcome = () => {
         <View style={styles.searchWrapper}>
           <TextInput
             style={styles.searchInput}
-            value=''
-            onChange={() => {}}
+            value={searchTerm}
+            onChangeText={(
+              text: string | NativeSyntheticEvent<TextInputChangeEventData>
+            ) => setSearchTerm(text)}
             placeholder='What are you looking for?'
           />
         </View>
-        <TouchableOpacity style={styles.searchBtn} onPress={() => {}}>
+        <TouchableOpacity style={styles.searchBtn} onPress={handleClick}>
           <Image
             source={icons.search}
             resizeMode='contain'
