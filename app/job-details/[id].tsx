@@ -34,7 +34,11 @@ const JobDetails = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>(tabs[0]);
 
-  const onRefresh = () => {};
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    refetch();
+    setRefreshing(false);
+  }, []);
 
   const displayTabContent = () => {
     switch (activeTab) {
@@ -47,7 +51,12 @@ const JobDetails = () => {
         );
       case "About":
         return (
-          <JobAbout info={data[0].job_description ?? "No data provided"} />
+          <JobAbout
+            info={
+              data[0].job_description ??
+              "No data provided\nTry Refreshing the page."
+            }
+          />
         );
       case "Responsibilities":
         return (
@@ -82,31 +91,31 @@ const JobDetails = () => {
         }}
       />
       <>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-        >
-          {isLoading ? (
-            <ActivityIndicator
-              style={{
-                justifyContent: "center",
-                alignContent: "center",
-                height: "100%",
-                width: "100%",
-              }}
-              size='large'
-              color={COLORS.primary}
-            />
-          ) : error ? (
-            <>
-              <Text>Something went wrong</Text>
-              <Text>{error}</Text>
-            </>
-          ) : data.length === 0 ? (
-            <Text>Job not found</Text>
-          ) : (
+        {isLoading ? (
+          <ActivityIndicator
+            style={{
+              justifyContent: "center",
+              alignContent: "center",
+              height: "90%",
+              width: "100%",
+            }}
+            size='large'
+            color={COLORS.primary}
+          />
+        ) : error ? (
+          <>
+            <Text>Something went wrong</Text>
+            <Text>{error}</Text>
+          </>
+        ) : data.length === 0 ? (
+          <Text>Job not found</Text>
+        ) : (
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+          >
             <View style={{ padding: SIZES.medium, paddingBottom: 100 }}>
               <Company
                 companyLogo={data[0].employer_logo}
@@ -121,8 +130,8 @@ const JobDetails = () => {
               />
               {displayTabContent()}
             </View>
-          )}
-        </ScrollView>
+          </ScrollView>
+        )}
         <JobFooter
           url={
             data[0]?.job_google_link ??
