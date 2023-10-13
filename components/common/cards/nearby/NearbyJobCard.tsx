@@ -11,14 +11,14 @@ const logoPlaceholder =
 
 interface NearbyJobTypes {
   job: JobType;
-  handleNavigate?: () => void;
+  handleNavigate: () => void;
 }
 
 const NearbyJobCard = (props: NearbyJobTypes) => {
   const { job, handleNavigate } = props;
 
   return (
-    <TouchableOpacity style={styles.container} onPress={() => handleNavigate}>
+    <TouchableOpacity style={styles.container} onPress={handleNavigate}>
       <TouchableOpacity style={styles.logoContainer}>
         <Image
           source={{

@@ -12,7 +12,7 @@ import styles from "./screenheader.style";
 interface ScreenHeaderBtnProps {
   iconUrl: ImageSourcePropType;
   dimension: DimensionValue;
-  handlePress: (event: GestureResponderEvent) => void;
+  handlePress?: (event: GestureResponderEvent) => void;
 }
 
 const ScreenHeaderBtn = (props: ScreenHeaderBtnProps) => {
