@@ -1,17 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import dotenv from "dotenv";
 
-dotenv.config();
-
-const rapidApiKey = process.env.RAPID_API_KEY;
+const rapidApiKey = "e0de5d5188mshd81ee73c03dc319p10b169jsna7264c746f63";
 
 const useFetch = (endpoint, query) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState(null);
-
-  const axios = require("axios");
 
   const options = {
     method: "GET",
@@ -33,7 +28,7 @@ const useFetch = (endpoint, query) => {
       setIsLoading(false);
     } catch (error) {
       setError(error);
-      alert(`There is an error\n${error}`);
+      alert(`There is an error:\n${error}`);
     } finally {
       setIsLoading(false);
     }
@@ -50,3 +45,5 @@ const useFetch = (endpoint, query) => {
 
   return { data, isLoading, error, refetch };
 };
+
+export default useFetch;

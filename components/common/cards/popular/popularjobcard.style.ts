@@ -1,9 +1,20 @@
-import { StyleSheet } from "react-native";
+import {
+  StyleSheet,
+  ViewStyle,
+  ImageStyle,
+  TextStyle,
+  ColorValue,
+  AnimatableNumericValue,
+} from "react-native";
+import { PopularJobTypes } from "../../../../types/components/shared.types";
 
 import { COLORS, FONT, SHADOWS, SIZES } from "../../../../constants";
 
-const styles = StyleSheet.create({
-  container: (selectedJob, item) => ({
+const styles = StyleSheet.create<any>({
+  container: (
+    selectedJob: PopularJobTypes["selectedJob"],
+    item: PopularJobTypes["item"]
+  ): ViewStyle => ({
     width: 250,
     padding: SIZES.xLarge,
     backgroundColor: selectedJob === item.job_id ? COLORS.primary : "#FFF",
@@ -12,7 +23,10 @@ const styles = StyleSheet.create({
     ...SHADOWS.medium,
     shadowColor: COLORS.white,
   }),
-  logoContainer: (selectedJob, item) => ({
+  logoContainer: (
+    selectedJob: PopularJobTypes["selectedJob"],
+    item: PopularJobTypes["item"]
+  ) => ({
     width: 50,
     height: 50,
     backgroundColor: selectedJob === item.job_id ? "#FFF" : COLORS.white,
@@ -33,7 +47,10 @@ const styles = StyleSheet.create({
   infoContainer: {
     marginTop: SIZES.large,
   },
-  jobName: (selectedJob, item) => ({
+  jobName: (
+    selectedJob: PopularJobTypes["selectedJob"],
+    item: PopularJobTypes["item"]
+  ) => ({
     fontSize: SIZES.large,
     fontFamily: FONT.medium,
     color: selectedJob === item.job_id ? COLORS.white : COLORS.primary,
@@ -44,7 +61,10 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
   },
-  publisher: (selectedJob) => ({
+  publisher: (
+    selectedJob: PopularJobTypes["selectedJob"],
+    item: PopularJobTypes["item"]
+  ) => ({
     fontSize: SIZES.medium - 2,
     fontFamily: FONT.bold,
     color: selectedJob === item.job_id ? COLORS.white : COLORS.primary,
