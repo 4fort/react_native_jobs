@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { JobType } from "../types/components/shared.types";
 
 const rapidApiKey = "e0de5d5188mshd81ee73c03dc319p10b169jsna7264c746f63";
 
-const useFetch = (endpoint, query) => {
-  const [data, setData] = useState([]);
+const useFetch = (endpoint: string, query) => {
+  const [data, setData] = useState<JobType[] | undefined>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState(null);
 

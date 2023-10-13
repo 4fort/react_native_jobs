@@ -42,14 +42,20 @@ const JobDetails = () => {
         return (
           <Specifics
             title='Qualifications'
-            points={data[0].job_highlights?.qualifications ?? ["N/A"]}
+            points={data[0].job_highlights?.Qualifications ?? ["N/A"]}
           />
         );
-        break;
       case "About":
-        break;
+        return (
+          <JobAbout info={data[0].job_description ?? "No data provided"} />
+        );
       case "Responsibilities":
-        break;
+        return (
+          <Specifics
+            title='Responsibilities'
+            points={data[0].job_highlights?.Responsibilities ?? ["N/A"]}
+          />
+        );
       default:
         break;
     }
@@ -83,7 +89,16 @@ const JobDetails = () => {
           }
         >
           {isLoading ? (
-            <ActivityIndicator size='large' color={COLORS.primary} />
+            <ActivityIndicator
+              style={{
+                justifyContent: "center",
+                alignContent: "center",
+                height: "100%",
+                width: "100%",
+              }}
+              size='large'
+              color={COLORS.primary}
+            />
           ) : error ? (
             <>
               <Text>Something went wrong</Text>
@@ -108,6 +123,12 @@ const JobDetails = () => {
             </View>
           )}
         </ScrollView>
+        <JobFooter
+          url={
+            data[0]?.job_google_link ??
+            "https://careers.google.com/jobs/results"
+          }
+        />
       </>
     </SafeAreaView>
   );
